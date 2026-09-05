@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="p:domain_verify" content="04b07d86bc783794266bc425fb1b20d0"/>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=108186979","ym");
+ym(108186979,"init",{webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/108186979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+<meta name="p:domain_verify" content="04b07d86bc783794266bc425fb1b20d0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoicePost — Голосовой бот для Telegram-постов | Автопостинг и ИИ-копирайтинг</title>
+<meta name="description" content="Голосовой бот для Telegram. Надиктуй голосовое — бот превратит его в готовый пост за 3 минуты и опубликует в твой канал. Голосовая распаковка эксперта — бот пишет именно в твоём стиле. Бесплатный тариф навсегда.">
+<meta name="keywords" content="голосовой бот telegram, бот для постов telegram, автопостинг telegram, ИИ копирайтер, бот для блогеров, создание постов голосом, войспост, voicepost, нейросеть для контента, АИ помощник блогера">
+<meta name="robots" content="index, follow">
+<meta name="author" content="VoicePost">
+<link rel="canonical" href="https://voice-post.ru/">
+<link rel="alternate" type="text/plain" href="https://voice-post.ru/llms.txt" title="LLMs.txt">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://voice-post.ru/">
+<meta property="og:title" content="VoicePost — Голосовой бот для Telegram-постов">
+<meta property="og:description" content="Надиктуй голосовое — бот превратит его в готовый пост за 3 минуты. Голосовая распаковка эксперта — посты звучат как ты, а не как нейросеть. Бесплатный тариф навсегда.">
+<meta property="og:image" content="https://voice-post.ru/og-image.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VoicePost — Голосовой бот для Telegram">
+<meta name="twitter:description" content="Надиктуй голосовое — бот превратит его в готовый пост за 3 минуты.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "VoicePost",
+  "description": "Голосовой бот для Telegram. Надиктуй голосовое — бот превратит его в готовый пост за 3 минуты и опубликует в твой Telegram-канал.",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Telegram, Max",
+  "url": "https://voice-post.ru",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "RUB",
+    "description": "Бесплатный тариф навсегда"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "3"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Exo+2:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08090f;
+    --bg2: #0d0e1a;
+    --bg3: #111326;
+    --blue: #00b4ff;
+    --blue2: #0070ff;
+    --cyan: #00e5ff;
+    --purple: #7b5cff;
+    --white: #f0f4ff;
+    --gray: #8892b0;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(0,180,255,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { background: #08090f; color: var(--white); font-family: 'Nunito', sans-serif; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 40px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(8,9,15,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Exo 2', sans-serif; font-size: 20px; font-weight: 800; background: linear-gradient(90deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-btn { background: linear-gradient(135deg, var(--blue2), var(--blue)); color: white; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 50px; text-decoration: none; transition: 0.2s; box-shadow: 0 0 20px rgba(0,112,255,0.4); }
+  .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,180,255,0.5); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 100px 80px 80px; position: relative; overflow: hidden; gap: 60px;
+  }
+  @media(max-width:900px){ .hero { grid-template-columns:1fr; padding:100px 24px 60px; text-align:center; } .hero-image { order:-1; } }
+
+  .glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3);
+    border-radius: 50px; padding: 8px 18px; font-size: 13px; font-weight: 700; color: var(--cyan);
+    margin-bottom: 28px; opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero-title { font-family: 'Exo 2', sans-serif; font-size: clamp(40px,6vw,76px); font-weight: 900; line-height: 1.05; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards; position: relative; z-index: 1; }
+  .grad { background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 50%, var(--purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 17px; line-height: 1.7; color: var(--gray); margin-bottom: 40px; max-width: 500px; opacity: 0; animation: fadeUp 0.7s ease 0.6s forwards; position: relative; z-index: 1; }
+  .hero-sub strong { color: var(--white); }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards; position: relative; z-index: 1; }
+
+  .btn-main { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--blue2), var(--blue), var(--cyan)); color: white; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800; padding: 16px 32px; border-radius: 50px; text-decoration: none; transition: 0.3s; box-shadow: 0 0 30px rgba(0,112,255,0.5); }
+  .btn-main:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,180,255,0.6); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--border); color: var(--gray); font-size: 15px; font-weight: 700; padding: 16px 28px; border-radius: 50px; text-decoration: none; transition: 0.2s; }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+
+  .hero-stats { display: flex; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.7s ease 1s forwards; flex-wrap: wrap; position: relative; z-index: 1; }
+  .stat-num { font-family: 'Exo 2', sans-serif; font-size: 40px; font-weight: 900; background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--gray); margin-top: 4px; font-weight: 600; }
+
+  .hero-image { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; opacity: 0; animation: fadeIn 1s ease 0.5s forwards; margin-top: -240px; }
+  .avatar-wrap { position: relative; width: 400px; height: 400px; }
+  @media(max-width:900px){ .avatar-wrap { width: 260px; height: 260px; } }
+  .avatar-ring { position: absolute; inset: -20px; border-radius: 50%; background: conic-gradient(from 0deg, var(--blue2), var(--cyan), var(--purple), var(--blue2)); animation: spin 6s linear infinite; opacity: 0.6; }
+  .avatar-ring::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: #08090f; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar-img { position: relative; z-index: 1; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid rgba(0,180,255,0.3); box-shadow: 0 0 60px rgba(0,112,255,0.4); }
+  .avatar-badge { position: absolute; bottom: 10px; right: -20px; background: rgba(13,14,26,0.97); border: 1px solid var(--border); border-radius: 16px; padding: 12px 18px; backdrop-filter: blur(10px); z-index: 2; }
+  .badge-text { font-size: 13px; font-weight: 800; color: var(--cyan); }
+  .badge-sub { font-size: 11px; color: var(--gray); margin-top: 2px; }
+  .float-card { position: absolute; background: rgba(13,14,26,0.97); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; backdrop-filter: blur(10px); font-size: 12px; font-weight: 800; z-index: 2; animation: float 3s ease-in-out infinite; white-space: nowrap; }
+  .float-card.c1 { top: 30px; left: -30px; animation-delay: 0s; color: var(--cyan); }
+  .float-card.c2 { top: 110px; right: -40px; animation-delay: 1s; color: #a78bfa; }
+  .float-card.c3 { bottom: 90px; left: -20px; animation-delay: 2s; color: #34d399; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* PAIN SECTION */
+  .pain-bg { background: var(--bg2); padding: 100px 80px; }
+  @media(max-width:768px){ .pain-bg { padding: 60px 24px; } }
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; align-items: start; }
+  @media(max-width:900px){ .pain-grid { grid-template-columns: 1fr; } }
+  .pain-list { display: flex; flex-direction: column; gap: 16px; }
+  .pain-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 14px; }
+  .pain-emoji { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .pain-text { font-size: 15px; line-height: 1.6; color: var(--gray); }
+  .pain-text strong { color: var(--white); }
+
+  .vs-block { background: rgba(0,180,255,0.05); border: 1px solid rgba(0,180,255,0.15); border-radius: 20px; padding: 32px; }
+  .vs-title { font-family: 'Exo 2', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 20px; color: var(--white); }
+  .vs-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; line-height: 1.5; }
+  .vs-row:last-child { border-bottom: none; }
+  .vs-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .vs-bad { color: var(--gray); }
+  .vs-good { color: var(--white); font-weight: 700; }
+
+  /* HOW */
+  .section-wrap { padding: 100px 80px; max-width: 1300px; margin: 0 auto; }
+  @media(max-width:768px){ .section-wrap { padding: 60px 24px; } }
+  .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 16px; }
+  .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--cyan); }
+  .section-title { font-family: 'Exo 2', sans-serif; font-size: clamp(30px,4vw,56px); font-weight: 900; line-height: 1.1; margin-bottom: 60px; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .step { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 36px 28px; position: relative; overflow: hidden; transition: 0.3s; }
+  .step:hover { transform: translateY(-6px); border-color: rgba(0,180,255,0.4); box-shadow: 0 8px 40px rgba(0,112,255,0.15); }
+  .step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue2), var(--cyan)); opacity: 0; transition: 0.3s; }
+  .step:hover::before { opacity: 1; }
+  .step-num { font-family: 'Exo 2', sans-serif; font-size: 64px; font-weight: 900; color: rgba(0,180,255,0.07); line-height: 1; margin-bottom: 12px; }
+  .step-icon { font-size: 36px; margin-bottom: 16px; }
+  .step-title { font-family: 'Exo 2', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+  .step-desc { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+  /* TIME SAVE */
+  .time-bg { background: linear-gradient(135deg, rgba(0,112,255,0.08), rgba(123,92,255,0.06)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px; }
+  @media(max-width:768px){ .time-bg { padding: 60px 24px; } }
+  .time-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-top: 48px; }
+  @media(max-width:900px){ .time-grid { grid-template-columns: 1fr; } }
+  .time-card { text-align: center; padding: 32px 24px; }
+  .time-num { font-family: 'Exo 2', sans-serif; font-size: 56px; font-weight: 900; background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 8px; }
+  .time-label { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .time-label strong { color: var(--white); display: block; font-size: 16px; margin-bottom: 4px; }
+
+  /* EXAMPLE */
+  .example-bg { background: var(--bg2); padding: 100px 80px; }
+  @media(max-width:768px){ .example-bg { padding: 60px 24px; } }
+  .example-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center; margin-top: 60px; }
+  @media(max-width:900px){ .example-grid { grid-template-columns: 1fr; } }
+
+  .voice-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 32px; }
+  .card-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.25); border-radius: 50px; padding: 5px 14px; font-size: 11px; font-weight: 800; color: var(--cyan); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+  .voice-wave { display: flex; align-items: center; gap: 4px; margin-bottom: 20px; height: 48px; }
+  .wave-bar { flex: 1; background: linear-gradient(180deg, var(--blue), var(--cyan)); border-radius: 4px; animation: wave 1.5s ease-in-out infinite; }
+  .wave-bar:nth-child(1){height:30%;animation-delay:0s} .wave-bar:nth-child(2){height:70%;animation-delay:.15s} .wave-bar:nth-child(3){height:50%;animation-delay:.3s} .wave-bar:nth-child(4){height:90%;animation-delay:.45s} .wave-bar:nth-child(5){height:60%;animation-delay:.6s} .wave-bar:nth-child(6){height:80%;animation-delay:.75s} .wave-bar:nth-child(7){height:40%;animation-delay:.9s} .wave-bar:nth-child(8){height:100%;animation-delay:1.05s} .wave-bar:nth-child(9){height:55%;animation-delay:1.2s} .wave-bar:nth-child(10){height:35%;animation-delay:1.35s} .wave-bar:nth-child(11){height:75%;animation-delay:1.5s} .wave-bar:nth-child(12){height:45%;animation-delay:1.65s}
+  @keyframes wave { 0%,100%{transform:scaleY(1);opacity:.8} 50%{transform:scaleY(.3);opacity:1} }
+  .voice-text { font-size: 14px; color: var(--gray); font-style: italic; line-height: 1.7; }
+  .voice-duration { font-size: 12px; color: rgba(0,180,255,0.5); margin-top: 12px; font-weight: 700; }
+
+  .arrow-center { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .arrow-icon { font-size: 32px; color: var(--cyan); animation: pulse 2s ease-in-out infinite; }
+  .arrow-time { font-family: 'Exo 2', sans-serif; font-size: 13px; font-weight: 800; color: var(--cyan); white-space: nowrap; background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.2); border-radius: 50px; padding: 4px 14px; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .post-card { background: white; border-radius: 20px; padding: 28px; color: #111; }
+  .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; }
+  .post-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #0070ff, #00e5ff); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .post-channel { font-size: 13px; font-weight: 800; color: #111; }
+  .post-time { font-size: 11px; color: #999; }
+  .post-body { font-size: 14px; line-height: 1.8; color: #333; }
+  .post-footer-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 11px; color: #bbb; padding-top: 12px; border-top: 1px solid #f0f0f0; flex-wrap: wrap; gap: 8px; }
+  .post-tag { background: #e8f4ff; color: #0070ff; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 50px; }
+
+  /* STYLE SECTION */
+  .style-bg { background: var(--bg3); padding: 100px 80px; }
+  @media(max-width:768px){ .style-bg { padding: 60px 24px; } }
+  .style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 60px; }
+  @media(max-width:900px){ .style-grid { grid-template-columns: 1fr; } }
+  .style-steps { display: flex; flex-direction: column; gap: 24px; }
+  .style-step { display: flex; align-items: flex-start; gap: 16px; }
+  .style-dot { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--blue2), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; font-weight: 900; font-family: 'Exo 2', sans-serif; color: white; }
+  .style-step-text h4 { font-family: 'Exo 2', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .style-step-text p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .profile-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+  .profile-field { margin-bottom: 16px; }
+  .profile-label { font-size: 11px; font-weight: 800; color: var(--cyan); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .profile-value { font-size: 14px; color: var(--white); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 14px; line-height: 1.5; }
+
+  /* TONES */
+  .tones-section { margin-top: 80px; }
+  .tones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 48px; }
+  .tone-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+  .tone-card:hover { background: rgba(0,180,255,0.1); border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 0 30px rgba(0,180,255,0.2); }
+  .tone-icon { font-size: 32px; margin-bottom: 10px; }
+  .tone-name { font-size: 13px; font-weight: 800; }
+
+  /* OBJECTIONS */
+  .obj-bg { background: var(--bg2); padding: 80px; }
+  @media(max-width:768px){ .obj-bg { padding: 60px 24px; } }
+  .obj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+  @media(max-width:768px){ .obj-grid { grid-template-columns: 1fr; } }
+  .obj-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+  .obj-q { font-size: 14px; font-weight: 700; color: var(--gray); margin-bottom: 12px; font-style: italic; }
+  .obj-q::before { content: '💬 '; }
+  .obj-a { font-size: 14px; color: var(--white); line-height: 1.7; }
+  .obj-a strong { color: var(--cyan); }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media(max-width:900px){ .features-grid { grid-template-columns: 1fr; } }
+  @media(max-width:1200px) and (min-width:901px){ .features-grid { grid-template-columns: repeat(2,1fr); } }
+  .feat { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; transition: 0.3s; }
+  .feat:hover { border-color: rgba(0,180,255,0.4); transform: translateY(-4px); box-shadow: 0 8px 40px rgba(0,112,255,0.15); }
+  .feat-icon { width: 52px; height: 52px; background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
+  .feat-title { font-family: 'Exo 2', sans-serif; font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+  .feat-desc { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+  /* PRICING */
+  .pricing-bg { background: var(--bg2); padding: 100px 80px; }
+  @media(max-width:768px){ .pricing-bg { padding: 60px 24px; } }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 60px; }
+  .plan { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 36px 28px; position: relative; transition: 0.3s; }
+  .plan:hover { transform: translateY(-6px); }
+  .plan.featured { background: linear-gradient(135deg, rgba(0,112,255,0.2), rgba(0,180,255,0.1)); border-color: rgba(0,180,255,0.5); box-shadow: 0 0 60px rgba(0,112,255,0.2); }
+  .plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--blue2), var(--cyan)); color: white; font-size: 11px; font-weight: 800; padding: 4px 16px; border-radius: 50px; white-space: nowrap; }
+  .plan-icon { font-size: 36px; margin-bottom: 16px; }
+  .plan-name { font-family: 'Exo 2', sans-serif; font-size: 14px; font-weight: 800; margin-bottom: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+  .plan-price { font-family: 'Exo 2', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; margin-bottom: 4px; background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .plan-period { font-size: 13px; color: var(--gray); margin-bottom: 28px; }
+  .plan-features { list-style: none; margin-bottom: 32px; }
+  .plan-feat { font-size: 13px; color: var(--gray); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px; }
+  .plan-feat::before { content: '✓'; color: var(--cyan); font-weight: 900; flex-shrink: 0; }
+  .plan-btn { display: block; text-align: center; padding: 14px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; text-decoration: none; transition: 0.2s; border: 1px solid rgba(0,180,255,0.3); color: var(--blue); }
+  .plan-btn:hover { background: rgba(0,180,255,0.1); }
+  .plan.featured .plan-btn { background: linear-gradient(135deg, var(--blue2), var(--blue)); border: none; color: white; box-shadow: 0 0 30px rgba(0,112,255,0.4); }
+  .plan.featured .plan-btn:hover { box-shadow: 0 0 50px rgba(0,180,255,0.5); transform: translateY(-2px); }
+
+  /* CTA */
+  .cta-section { padding: 120px 40px; text-align: center; position: relative; overflow: hidden; }
+  .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,112,255,0.15) 0%, transparent 70%); pointer-events: none; }
+  .cta-content { position: relative; z-index: 1; }
+  .cta-title { font-family: 'Exo 2', sans-serif; font-size: clamp(32px,5vw,64px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+  .cta-sub { font-size: 17px; color: var(--gray); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  /* FAQ */
+  .faq-bg { background: var(--bg2); padding: 100px 0; }
+  .faq-inner { max-width: 800px; margin: 0 auto; padding: 0 40px; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; cursor: pointer; }
+  .faq-q { font-family: 'Exo 2', sans-serif; font-size: 16px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .faq-icon { color: var(--cyan); font-size: 20px; transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { font-size: 14px; color: var(--gray); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-item.open .faq-a { max-height: 300px; padding-top: 14px; }
+
+  footer { padding: 48px 80px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  @media(max-width:600px){ footer { padding: 40px 24px; flex-direction: column; text-align: center; } }
+  .footer-logo { font-family: 'Exo 2', sans-serif; font-size: 20px; font-weight: 900; background: linear-gradient(90deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; font-weight: 600; }
+  .footer-links a:hover { color: var(--cyan); }
+  .footer-copy { font-size: 12px; color: #333; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #08090f; }
+  ::-webkit-scrollbar-thumb { background: var(--blue2); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🎙 VoicePost</div>
+  <a href="tg://resolve?domain=sasha_poster_bot" class="nav-btn">Попробовать бесплатно →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow" style="top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,112,255,0.12) 0%,transparent 70%)"></div>
+  <div class="glow" style="bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(123,92,255,0.1) 0%,transparent 70%)"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-badge">🎙 Голосовой ИИ-бот для Telegram-каналов</div>
+    <h1 class="hero-title">Просто надиктуй —<br><span class="grad">бот опубликует</span></h1>
+    <p class="hero-sub">Для экспертов и блогеров, которые устали писать вручную.<br><strong>Говоришь голосом — бот пишет в твоём стиле и публикует прямо в канал.</p>
+    
+
+    <div class="hero-btns">
+      <a href="tg://resolve?domain=sasha_poster_bot" class="btn-main">🚀 Начать бесплатно</a>
+      <a href="#how" class="btn-ghost">Как это работает →</a>
+    </div>
+    <div style="margin-top:16px;">
+      <a href="https://max.ru/id710302044313_bot" target="_blank" class="btn-ghost">📱 Открыть в мессенджере MAX</a>
+    </div>
+    <div style="margin-top:16px;font-size:13px;color:#8899aa;">Нажми → откроется бот → надиктуй голосом → через 3 минуты готовый пост в твоём канале</div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3 мин</div><div class="stat-label">голос → готовый пост</div></div>
+      <div><div class="stat-num">3+5</div><div class="stat-label">подачи и финалы</div></div>
+      <div><div class="stat-num">0 ₽</div><div class="stat-label">бесплатный тариф</div></div>
+      <div><div class="stat-num">24/7</div><div class="stat-label">всегда онлайн</div></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <img src="avatar.jpg" alt="VoicePost" class="avatar-img">
+      <div class="avatar-badge"><div class="badge-text">⚡ Пост готов!</div><div class="badge-sub">за 3 минуты</div></div>
+      <div class="float-card c1">🎙 Голос → текст</div>
+      <div class="float-card c2">🧠 Твой стиль</div>
+      <div class="float-card c3">📢 Публикация в канал</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section style="padding: 60px 20px; max-width: 900px; margin: 0 auto; text-align: center;">
+  <section style="padding: 60px 20px; max-width: 900px; margin: 0 auto; text-align: center;">
+  <div class="section-tag reveal">Отзывы</div>
+  <h2 class="section-title reveal">Что говорят пользователи</h2>
+  <div style="margin-top: 40px;">
+    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px; text-align: left;">
+      <div style="font-size: 1.1rem; line-height: 1.8; color: #e0e6f0; margin-bottom: 24px;"><img src="review_yulia.jpg" alt="Отзыв Юлии" style="width:100%; max-width:420px; border-radius:16px; box-shadow:0 4px 32px rgba(0,0,0,0.3);"></div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #0070ff, #00e5ff); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 20px;">Ю</div>
+        <div>
+          <div style="font-weight: 600; color: #fff;">Юлия Бегишева</div>
+          <div style="color: #8899aa; font-size: 0.9rem;">Контактёр, целитель &mdash; <a href="https://t.me/yuwaya" style="color: #0070ff;">@yuwaya</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <div style="margin-top: 24px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px; text-align: left;">
+        <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+          <img src="post_minnigul.jpg" alt="Пост Миннигуль" style="width:48%; max-width:280px; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.3);">
+          <img src="review_minnigul.jpg" alt="Отзыв Миннигуль" style="width:48%; max-width:280px; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.3);">
+        </div>
+        <div style="font-size: 1.1rem; line-height: 1.8; color: #e0e6f0; margin-bottom: 24px;">«Сначала хотела «повозмущаться» — 15 вопросов в разделе «Распаковка». Ответила голосом за перерыв. 20 секунд — и вот! Мой пост готов! Читаю, перечитываю... придраться ни к чему, мои мысли, мои слова... чувствуется, что там есть я! Бот супер — не как все, не живые. Рекомендую, не сомневайтесь!»</div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #ff6eb4, #ff9a5c); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 20px;">М</div>
+          <div>
+            <div style="font-weight: 600; color: #fff;">Миннигуль Гильмутдинова</div>
+            <div style="color: #8899aa; font-size: 0.9rem;">Косметолог, массажист &mdash; <a href="https://t.me/massag_moskwa" style="color: #0070ff;">@massag_moskwa</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px; text-align: left;">
+        <div style="font-size: 0.85rem; color: #8899aa; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">Спустя месяц использования:</div>
+        <div style="font-size: 1.1rem; line-height: 1.8; color: #e0e6f0; margin-bottom: 24px;">«Бот офигенный. Огромный плюс — принимает голосом, потому что времени писать практически некогда, я работаю руками. Бот разговаривает моими мыслями, моим стилем. Если что-то не нравится — говорю голосом, он переделывает. Очень удобно. И живой контакт с разработчиком — это отдельный плюс. Планирую применять в работе для ведения социальных сетей»</div>
+        <div style="margin-bottom: 24px;">
+          <div style="font-size: 0.85rem; color: #8899aa; margin-bottom: 8px;">🎙 Послушать голосом:</div>
+          <audio controls style="width: 100%; border-radius: 8px;"><source src="review_minnigul_voice.ogg" type="audio/ogg">Ваш браузер не поддерживает аудио.</audio>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #ff6eb4, #ff9a5c); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 20px;">М</div>
+          <div>
+            <div style="font-weight: 600; color: #fff;">Миннигуль Гильмутдинова</div>
+            <div style="color: #8899aa; font-size: 0.9rem;">Косметолог, массажист &mdash; <a href="https://t.me/massag_moskwa" style="color: #0070ff;">@massag_moskwa</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px; text-align: left;">
+        <div style="font-size: 1.1rem; line-height: 1.8; color: #e0e6f0; margin-bottom: 24px;">«Самое сложное — не забыть идею для поста, которая может возникнуть в любой момент, и найти время для её написания. Решение найдено! Открываю VoicePost, голосом наговариваю идею — и сразу получаю текст. Бот считал мой авторский стиль. Главное — не теряются идеи! Рекомендую попробовать, тем более есть бесплатный период.»</div>
+        <div style="margin-bottom: 24px;"><img src="review_natali.jpg" alt="Отзыв Натали" style="width:100%; max-width:380px; border-radius:16px; box-shadow:0 4px 32px rgba(0,0,0,0.3);"></div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #7b2ff7, #f107a3); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 20px;">Н</div>
+          <div>
+            <div style="font-weight: 600; color: #fff;">Натали Имприс</div>
+            <div style="color: #8899aa; font-size: 0.9rem;">Эксперт, блогер &mdash; <a href="https://t.me/Nataliya_Impris" style="color: #0070ff;">Канал Натали</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px; text-align: left;">
+        <div style="font-size: 0.85rem; color: #8899aa; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">Спустя 2 месяца использования:</div>
+        <div style="font-size: 1.1rem; line-height: 1.8; color: #e0e6f0; margin-bottom: 24px;">«Без правок абсолютно. Просто шла, наговорила — и перепостила. Первый раз за всё время тестов, когда был вот такой 100% результат. Круто продвинулось качество постов.»</div>
+        <div style="margin-bottom: 24px;"><img src="review_natali_new.png" alt="Новый отзыв Натали" style="width:100%; max-width:380px; border-radius:16px; box-shadow:0 4px 32px rgba(0,0,0,0.3);"></div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #7b2ff7, #f107a3); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 20px;">Н</div>
+          <div>
+            <div style="font-weight: 600; color: #fff;">Натали Имприс</div>
+            <div style="color: #8899aa; font-size: 0.9rem;">Эксперт, блогер &mdash; <a href="https://t.me/Nataliya_Impris" style="color: #0070ff;">Канал Натали</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+<!-- PAIN -->
+<section class="pain-bg">
+  <div style="max-width:1300px;margin:0 auto">
+    <div class="section-tag reveal">Знакомо?</div>
+    <h2 class="section-title reveal">Есть о чём говорить.<br><span class="grad">Но час уходит впустую.</span></h2>
+    <div class="pain-grid reveal">
+      <div class="pain-list">
+        <div class="pain-item">
+          <div class="pain-emoji">😤</div>
+          <div class="pain-text"><strong>Сел писать пост — потерял час.</strong> Мысль есть, слов нет. Переписываешь снова и снова, и в итоге всё равно не нравится.</div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-emoji">📅</div>
+          <div class="pain-text"><strong>Контент откладывается на потом.</strong> Клиенты, встречи, семья — и в итоге канал молчит неделями. Хотя мыслей хватает на десять постов.</div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-emoji">😰</div>
+          <div class="pain-text"><strong>Нейросеть тоже не спасает.</strong> Нужно придумать промпт, объяснить контекст, переформулировать — это тоже работа.</div>
+        </div>
+        <div class="pain-item">
+          <div class="pain-emoji">🎭</div>
+          <div class="pain-text"><strong>Посты получаются «не в твоём стиле».</strong> ИИ пишет шаблонно, ты узнаёшь это по первым строчкам — и снова правишь.</div>
+        </div>
+      </div>
+      <div class="vs-block">
+        <div class="vs-title">VoicePost vs нейросеть</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead>
+            <tr>
+              <th style="padding:10px 8px;text-align:left;color:#8899aa;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.08);"></th>
+              <th style="padding:10px 8px;text-align:center;color:#ff6b6b;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);">❌ Нейросеть</th>
+              <th style="padding:10px 8px;text-align:center;color:#00e5ff;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);">✅ VoicePost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:10px 8px;color:#8899aa;border-bottom:1px solid rgba(255,255,255,0.05);">Что делаешь ты</td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;border-bottom:1px solid rgba(255,255,255,0.05);">Пишешь промпт, объясняешь, редактируешь, копируешь, публикуешь вручную</td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;border-bottom:1px solid rgba(255,255,255,0.05);">Говоришь голосом — всё остальное делает бот</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px;color:#8899aa;border-bottom:1px solid rgba(255,255,255,0.05);">Время на 1 пост</td>
+              <td style="padding:10px 8px;text-align:center;color:#ff6b6b;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.05);">30–60 минут</td>
+              <td style="padding:10px 8px;text-align:center;color:#00e5ff;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.05);">3 минуты</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px;color:#8899aa;border-bottom:1px solid rgba(255,255,255,0.05);">Знает твой стиль</td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;border-bottom:1px solid rgba(255,255,255,0.05);">Нет — каждый раз с нуля</td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;border-bottom:1px solid rgba(255,255,255,0.05);">Да — помнит тебя всегда</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px;color:#8899aa;border-bottom:1px solid rgba(255,255,255,0.05);">Публикует в канал</td>
+              <td style="padding:10px 8px;text-align:center;color:#ff6b6b;border-bottom:1px solid rgba(255,255,255,0.05);">Нет</td>
+              <td style="padding:10px 8px;text-align:center;color:#00e5ff;border-bottom:1px solid rgba(255,255,255,0.05);">Да — одним нажатием</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px;color:#8899aa;">Цена</td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;">~2000 руб/мес<br><span style="color:#ff6b6b;font-size:12px;">+ твоё время + твоя энергия</span></td>
+              <td style="padding:10px 8px;text-align:center;color:#e0e6f0;">от 2500 руб/мес<br><span style="color:#00e5ff;font-size:12px;">всё включено</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(0,229,255,0.05);border-radius:10px;font-size:13px;color:#8899aa;line-height:1.6;">
+          💡 <strong style="color:#e0e6f0;">Нейросеть — инструмент. VoicePost — автопилот.</strong> Разница не в цене, а в том сколько ты тратишь себя.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="style-bg">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-tag reveal">🧬 Распаковка эксперта</div>
+    <h2 class="section-title reveal">Бот узнаёт тебя<br><span class="grad">как личный редактор</span></h2>
+    <div class="style-grid reveal">
+      <div class="style-steps">
+        <div class="style-step">
+          <div class="style-dot">1</div>
+          <div class="style-step-text">
+            <h4>Запускаешь распаковку</h4>
+            <p>Нажимаешь кнопку «🧬 Распаковка» в боте. Без подготовки и правильных слов — говори как есть.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">2</div>
+          <div class="style-step-text">
+            <h4>Отвечаешь на 15 вопросов голосом</h4>
+            <p>О себе, своём деле, клиентах и ценностях. Как рассказываешь другу — занимает около 30 минут. Один раз за всё время.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">3</div>
+          <div class="style-step-text">
+            <h4>Бот запоминает навсегда</h4>
+            <p>Теперь каждый пост — с твоими историями, твоими словами и твоей личностью. Больше не нужно объяснять кто ты — бот уже знает.</p>
+          </div>
+        </div>
+        <div style="margin-top:8px;padding:16px 20px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:14px;font-size:14px;color:var(--gray);line-height:1.6">
+          🔥 <strong style="color:var(--white)">Никакого шаблона.</strong> Только ты — твои истории, твои слова, твоя личность.
+        </div>
+      </div>
+      <div class="profile-card">
+        <div style="font-size:12px;font-weight:800;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">🧬 15 вопросов распаковки</div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 1</div>
+          <div class="profile-value">Представься как будто рассказываешь другу — кто ты и что делаешь?</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 5</div>
+          <div class="profile-value">Опиши своего идеального клиента — не портрет, а живого человека. Кто он, что его мучает?</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 8</div>
+          <div class="profile-value">Что умеешь делать ты — чего не умеет никто другой в твоей нише?</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 15</div>
+          <div class="profile-value">Если бы ты мог сказать одну фразу всем своим будущим клиентам — что бы ты сказал?</div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(0,229,255,0.06);border-radius:12px;font-size:13px;color:var(--cyan);font-weight:700">✓ Бот запоминает всё это навсегда</div>
+        <a href="tg://resolve?domain=sasha_poster_bot&start=unboxing" target="_blank" style="display:block;margin-top:16px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;font-weight:800;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none;text-align:center;">🧬 Пройти распаковку бесплатно</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ЛИЧНАЯ РАСПАКОВКА -->
+<section class="style-bg">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-tag reveal">🪞 Распаковка личности</div>
+    <h2 class="section-title reveal">Бот знает не только нишу —<br><span class="grad">он знает тебя</span></h2>
+    <div class="style-grid reveal">
+      <div class="style-steps">
+        <div class="style-step">
+          <div class="style-dot">1</div>
+          <div class="style-step-text">
+            <h4>Рассказываешь о себе — не о работе</h4>
+            <p>Поворотные моменты, страхи, мечты, странности. То, что делает тебя живым человеком — а не очередным экспертом с шаблонными постами.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">2</div>
+          <div class="style-step-text">
+            <h4>15 вопросов про жизнь и характер</h4>
+            <p>Кто ты вне работы? Что тебя бесит? Чего боишься но всё равно делаешь? Один раз голосом — занимает 20–30 минут.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">3</div>
+          <div class="style-step-text">
+            <h4>Посты звучат как живой человек</h4>
+            <p>Бот вплетает твои реальные истории, твой характер и твои ценности. Читатели чувствуют — это не нейросеть, это ты.</p>
+          </div>
+        </div>
+        <div style="margin-top:8px;padding:16px 20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);border-radius:14px;font-size:14px;color:var(--gray);line-height:1.6">
+          🪞 <strong style="color:var(--white)">Два уровня персонализации.</strong> Распаковка эксперта — про дело. Распаковка личности — про тебя. Вместе они дают посты, которые невозможно перепутать с чужими.
+        </div>
+      </div>
+      <div class="profile-card">
+        <div style="font-size:12px;font-weight:800;color:var(--purple);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">🪞 Вопросы распаковки личности</div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 1</div>
+          <div class="profile-value">Расскажи о себе как другу — кто ты вне работы?</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 3</div>
+          <div class="profile-value">Чего ты боишься — но всё равно делаешь? Расскажи конкретный пример.</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 9</div>
+          <div class="profile-value">Расскажи про свою странность или привычку которую другие не понимают.</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Вопрос 15</div>
+          <div class="profile-value">Если бы мог написать письмо себе 10 лет назад — что бы написал?</div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(168,85,247,0.06);border-radius:12px;font-size:13px;color:var(--purple);font-weight:700">✓ Бот помнит твою личность при каждом посте</div>
+        <a href="tg://resolve?domain=sasha_poster_bot&start=unboxing" target="_blank" style="display:block;margin-top:16px;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#000;font-weight:800;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none;text-align:center;">🪞 Пройти распаковку личности</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- HOW IT WORKS -->
+<div id="how"></div>
+<div class="section-wrap">
+  <div class="section-tag reveal">Как это работает</div>
+  <h2 class="section-title reveal">Три шага до<br><span class="grad">готового поста</span></h2>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">🎙</div>
+      <div class="step-title">Надиктовал</div>
+      <div class="step-desc">Говори как обычно — без скриптов и подготовки. Даже «мычание и паузы» — всё нормально. Бот понимает живую речь.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">⚡</div>
+      <div class="step-title">Бот создал</div>
+      <div class="step-desc">За 3 минуты — готовый пост в твоём стиле с нужной подачей. Без лишних инструментов и промптов. Просто работает.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">✅</div>
+      <div class="step-title">Опубликовано</div>
+      <div class="step-desc">Прочитал, одобрил — пост ушёл в канал. Или запланируй на удобное время. Всё в одном боте.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- VIDEO -->
+<section style="background:var(--bg2);padding:60px 80px;">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <div class="section-tag reveal">🎬 Смотри как это работает</div>
+    <h2 class="section-title reveal">Пост за <span class="grad">3 минуты</span> — смотри сам</h2>
+    <div style="margin-top:40px;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+      <video width="100%" controls style="display:block;border-radius:16px;">
+        <source src="/video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+<!-- TIME SAVE -->
+<section class="time-bg">
+  <div style="max-width:1300px;margin:0 auto">
+    <div class="section-tag reveal">Считаем честно</div>
+    <h2 class="section-title reveal">1 пост = 1 час.<br><span class="grad">Сколько это в месяц?</span></h2>
+    <div class="time-grid reveal">
+      <div class="time-card">
+        <div class="time-num">1ч</div>
+        <div class="time-label"><strong>Каждый день</strong>Написать, переписать, отредактировать — минимум час</div>
+      </div>
+      <div class="time-card">
+        <div class="time-num">7ч</div>
+        <div class="time-label"><strong>Каждую неделю</strong>Полный рабочий день — только на тексты для канала</div>
+      </div>
+      <div class="time-card">
+        <div class="time-num">30ч</div>
+        <div class="time-label"><strong>Каждый месяц</strong>Эти часы можно тратить на клиентов, семью или отдых.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE -->
+<section class="example-bg">
+  <div class="section-tag reveal">Пример</div>
+  <h2 class="section-title reveal">Из голоса —<br><span class="grad">в готовый пост</span></h2>
+  <div class="example-grid reveal">
+    <div class="voice-card">
+      <div class="card-label">🎙 Голосовое сообщение</div>
+      <div class="voice-wave">
+        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      </div>
+      <div class="voice-text">"Хочу написать про то, что люди постоянно откладывают свои цели на потом... ну там, начну с понедельника, вот разберусь с делами и тогда начну... и так годами"</div>
+      <div class="voice-duration">⏱ 0:18 сек</div>
+    </div>
+    <div class="arrow-center">
+      <div class="arrow-icon">⚡</div>
+      <div class="arrow-time">3 минуты</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <div class="post-avatar">🤖</div>
+        <div><div class="post-channel">Твой Telegram-канал</div><div class="post-time">только что</div></div>
+      </div>
+      <div class="post-body">
+        💡 <strong>«С понедельника» — самая дорогая фраза в вашей жизни</strong><br><br>
+        Посчитайте. Сколько «понедельников» вы уже пропустили?<br><br>
+        Каждый раз когда вы говорите «начну потом» — вы платите реальную цену. Не деньгами. Временем, возможностями, тем человеком которым могли бы стать.<br><br>
+        Начните сегодня. Плохо. Неловко. Не готовы. Потом улучшите. 🔥
+      </div>
+      <div class="post-footer-row">
+        <span class="post-tag">📖 История + 📌 Совет</span>
+        <span>127 слов · готово к публикации</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tones-section reveal">
+    <div class="section-tag">Подача и финал</div>
+    <h2 class="section-title" style="margin-top:16px">Один голос —<br><span class="grad">ты решаешь как подать</span></h2>
+    <div style="margin-bottom:32px;">
+      <div style="font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Как подать пост?</div>
+      <div class="tones-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));">
+        <div class="tone-card"><div class="tone-icon">📖</div><div class="tone-name">История</div></div>
+        <div class="tone-card"><div class="tone-icon">💡</div><div class="tone-name">Экспертный</div></div>
+        <div class="tone-card"><div class="tone-icon">🎭</div><div class="tone-name">Наблюдение</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Каким будет финал?</div>
+      <div class="tones-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+        <div class="tone-card"><div class="tone-icon">💡</div><div class="tone-name">Вывод-инсайт</div></div>
+        <div class="tone-card"><div class="tone-icon">🎯</div><div class="tone-name">Авторская позиция</div></div>
+        <div class="tone-card"><div class="tone-icon">📌</div><div class="tone-name">Конкретный совет</div></div>
+        <div class="tone-card"><div class="tone-icon">❓</div><div class="tone-name">Вопрос аудитории</div></div>
+        <div class="tone-card"><div class="tone-icon">📢</div><div class="tone-name">Призыв к действию</div></div>
+      </div>
+    </div>
+    <div style="padding:14px 20px;background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.15);border-radius:14px;font-size:14px;color:var(--gray);line-height:1.6;text-align:center;">
+      ⏭ <strong style="color:var(--white)">Можно пропустить оба шага</strong> — бот сам подберёт подачу и финал под тип поста.
+    </div>
+  </div>
+</section>
+
+<!-- STYLE / PROFILE -->
+<section class="style-bg">
+  <div style="max-width:1300px;margin:0 auto">
+    <div class="section-tag reveal">Стиль как у тебя</div>
+    <h2 class="section-title reveal">Бот пишет<br><span class="grad">именно как ты</span></h2>
+    <div class="style-grid reveal">
+      <div class="style-steps">
+        <div class="style-step">
+          <div class="style-dot">1</div>
+          <div class="style-step-text">
+            <h4>Загружаешь примеры постов</h4>
+            <p>Скидываешь 3–5 своих лучших постов — бот изучает твой стиль, подачу, структуру.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">2</div>
+          <div class="style-step-text">
+            <h4>Настраиваешь профиль эксперта</h4>
+            <p>Указываешь нишу, имя, аудиторию — бот знает для кого пишет.</p>
+          </div>
+        </div>
+        <div class="style-step">
+          <div class="style-dot">3</div>
+          <div class="style-step-text">
+            <h4>Получаешь посты в своём голосе</h4>
+            <p>Больше никакого «ИИ-шного» текста. Читатели не замечают разницы.</p>
+          </div>
+        </div>
+        <div style="margin-top:8px;padding:16px 20px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:14px;font-size:14px;color:var(--gray);line-height:1.6">
+          💡 <strong style="color:var(--white)">Не хочешь возиться со стилем?</strong> Просто выбери подачу и финал — или пропусти, бот сам подберёт.
+        </div>
+      </div>
+      <div class="profile-card">
+        <div style="font-size:12px;font-weight:800;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">Профиль эксперта</div>
+        <div class="profile-field">
+          <div class="profile-label">Имя и ниша</div>
+          <div class="profile-value">Натали Имприс · Психология и самопознание</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Аудитория</div>
+          <div class="profile-value">Женщины 25–45 лет, путь к себе, осознанность и внутренняя трансформация</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Стиль из примеров</div>
+          <div class="profile-value">Тёплый, глубокий. Личные истории. Метафоры и вопросы к читателю.</div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(0,229,255,0.06);border-radius:12px;font-size:13px;color:var(--cyan);font-weight:700">✓ Бот готов писать как ты</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+
+
+<section class="obj-bg">
+  <div style="max-width:1300px;margin:0 auto">
+    <div class="section-tag reveal">Частые сомнения</div>
+    <h2 class="section-title reveal">А если...<br><span class="grad">Отвечаем честно</span></h2>
+    <div class="obj-grid reveal">
+      <div class="obj-card">
+        <div class="obj-q">Пост будет не в моём стиле?</div>
+        <div class="obj-a">Загрузи 3–5 своих постов через /setstyle — бот запоминает твою подачу, структуру, любимые приёмы. <strong>Читатели не заметят разницы.</strong></div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">Это сложно настраивать?</div>
+        <div class="obj-a">Одна команда /start, и бот проведёт тебя через всё за 5 минут. <strong>Никаких API, настроек и технических знаний.</strong></div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">А что если говорю несвязно?</div>
+        <div class="obj-a">Бот понимает живую речь с паузами, оговорками и «ну короче». <strong>Говори как обычно — он разберётся.</strong></div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">Я ещё не попробовал — стоит ли платить?</div>
+        <div class="obj-a">Не нужно. <strong>Бесплатный тариф навсегда,</strong> без ввода карты. Попробуй и реши сам.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="section-wrap">
+  <div class="section-tag reveal">Возможности</div>
+  <h2 class="section-title reveal">Всё что нужно<br><span class="grad">для твоего канала</span></h2>
+  <div class="features-grid reveal">
+    <div class="feat"><div class="feat-icon">🎙</div><div class="feat-title">Голосовые правки</div><div class="feat-desc">Не нравится результат? Скажи голосом что изменить — бот переделает мгновенно.</div></div>
+    <div class="feat"><div class="feat-icon">⏰</div><div class="feat-title">Расписание публикаций</div><div class="feat-desc">Запланируй пост на нужное время по Москве — бот опубликует автоматически.</div></div>
+    
+    <div class="feat"><div class="feat-icon">🧠</div><div class="feat-title">Профиль эксперта</div><div class="feat-desc">Бот знает твою нишу и аудиторию — каждый пост звучит именно как ты.</div></div>
+    <div class="feat"><div class="feat-icon">📢</div><div class="feat-title">Прямая публикация</div><div class="feat-desc">Привяжи канал и публикуй одним нажатием — никакого копипаста.</div></div>
+    <div class="feat"><div class="feat-icon">🤝</div><div class="feat-title">Партнёрская программа</div><div class="feat-desc">Рекомендуй и получай 20% с каждой оплаты твоих рефералов навсегда.</div></div>
+    <div class="feat"><div class="feat-icon">💡</div><div class="feat-title">Идеи для постов</div><div class="feat-desc">Нет темы? Скажи о чём хочешь написать — бот предложит 5 готовых идей под твою аудиторию.</div></div>
+  </div>
+</div>
+
+<!-- PRICING -->
+
+
+<section class="pricing-bg">
+  <section style="padding: 80px 20px; max-width: 700px; margin: 0 auto; text-align: center;">
+    <div class="section-tag reveal">Пример рабочего дня</div>
+    <h2 class="section-title reveal">15 минут утром —<br><span class="grad">канал живёт весь день</span></h2>
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-top: 40px; text-align: left;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <div style="font-size: 32px;">&#127774;</div>
+          <div><div style="font-weight: 800; color: var(--cyan); margin-bottom: 4px;">07:00</div><div style="color: var(--gray);">Надиктовал 3 поста за кофе. Прикрепил фото.</div></div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <div style="font-size: 32px;">&#9200;</div>
+          <div><div style="font-weight: 800; color: var(--cyan); margin-bottom: 4px;">07:10</div><div style="color: var(--gray);">Поставил публикации на 10:00, 14:00 и 19:00.</div></div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <div style="font-size: 32px;">&#128226;</div>
+          <div><div style="font-weight: 800; color: var(--cyan); margin-bottom: 4px;">Весь день</div><div style="color: var(--gray);">Бот публикует сам. Ты занимаешься клиентами.</div></div>
+        </div>
+      </div>
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--gray); font-style: italic;">Никакого «сяду вечером напишу». Никакого копипаста. Просто говоришь — бот делает всё остальное. &#127897;</div>
+    </div>
+  </section>
+
+
+<div class="section-tag reveal">Тарифы</div>
+  <h2 class="section-title reveal">Начни бесплатно.<br><span class="grad">Расти с нами.</span></h2>
+  <div class="pricing-grid reveal">
+    <div class="plan">
+      <div class="plan-icon">🎁</div><div class="plan-name">Бесплатный</div>
+      <div class="plan-price">0 ₽</div><div class="plan-period">навсегда</div>
+      <ul class="plan-features">
+        <li class="plan-feat">1 пост в день</li>
+        <li class="plan-feat">Telegram и MAX</li>
+        <li class="plan-feat">Профиль, распаковка, стиль</li>
+        <li class="plan-feat">Без карты</li>
+      </ul>
+      <div style="color:var(--gray);font-size:13px;margin-bottom:16px;font-style:italic;">Чтобы попробовать формат и понять, зайдёт ли тебе и твоей аудитории</div><a href="tg://resolve?domain=sasha_poster_bot" class="plan-btn">Начать бесплатно</a>
+    </div>
+    <div class="plan">
+      <div class="plan-icon">⭐</div><div class="plan-name">Старт</div>
+      <div class="plan-price">2500 ₽</div><div class="plan-period">в месяц</div>
+      <ul class="plan-features">
+        <li class="plan-feat">3 генерации в день</li>
+        <li class="plan-feat">Telegram, MAX, ВКонтакте</li>
+        <li class="plan-feat">Своё фото и видео</li>
+        <li class="plan-feat">Голосовые правки и генерация идей</li>
+      </ul>
+      <div style="color:var(--gray);font-size:13px;margin-bottom:16px;font-style:italic;">Три площадки и до трёх постов каждый день</div>
+      <a href="tg://resolve?domain=sasha_poster_bot" class="plan-btn">Выбрать</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">⚡ Популярный</div>
+      <div class="plan-icon">🔥</div><div class="plan-name">Про</div>
+      <div class="plan-price">5000 ₽</div><div class="plan-period">в месяц</div>
+      <ul class="plan-features">
+        <li class="plan-feat">Всё из Старта</li>
+        <li class="plan-feat">5 генераций в день</li>
+        <li class="plan-feat">Дзен и Одноклассники</li>
+        <li class="plan-feat">Отложенный постинг</li>
+      </ul>
+      <div style="color:var(--gray);font-size:13px;margin-bottom:16px;font-style:italic;">Все пять площадок и публикация по расписанию</div>
+      <a href="tg://resolve?domain=sasha_poster_bot" class="plan-btn">Выбрать</a>
+    </div>
+    <div class="plan">
+      <div class="plan-icon">🚀</div><div class="plan-name">Безлимит</div>
+      <div class="plan-price">10000 ₽</div><div class="plan-period">в месяц</div>
+      <ul class="plan-features">
+        <li class="plan-feat">Всё из Про, без лимита постов</li>
+        <li class="plan-feat">Карусели для Instagram</li>
+        <li class="plan-feat">Статьи в Дзен</li>
+        <li class="plan-feat">Настройка площадок под ключ</li>
+      </ul>
+      <div style="color:var(--gray);font-size:13px;margin-bottom:16px;font-style:italic;">Если нужны статьи, карусели и настройка площадок под ключ</div>
+      <a href="tg://resolve?domain=sasha_poster_bot" class="plan-btn">Выбрать</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:32px;padding:20px;background:rgba(0,229,255,0.05);border-radius:16px;border:1px solid rgba(0,229,255,0.15);">
+    <p style="color:#e0e6f0;font-size:16px;margin:0;">💡 <strong>Один новый клиент с канала окупает год подписки на любой тариф.</strong><br><span style="color:#8899aa;font-size:14px;">Твоё время и энергия стоят дороже.</span></p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-content">
+    <div class="section-tag reveal" style="justify-content:center;margin-bottom:16px;">Бесплатно</div>
+    <h2 class="cta-title reveal">Бесплатно навсегда.<br><span class="grad">Без карты.</span></h2>
+    <p class="cta-sub reveal">Открой бота и запиши первое голосовое. Уже через 3 минуты увидишь готовый пост для своего канала.</p>
+    <a href="tg://resolve?domain=sasha_poster_bot" class="btn-main reveal" style="display:inline-flex;">🎙 Попробовать сейчас</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-bg">
+  <div class="faq-inner">
+    <div class="section-tag reveal">FAQ</div>
+    <h2 class="section-title reveal" style="font-size:clamp(28px,4vw,48px)">Частые <span class="grad">вопросы</span></h2>
+    <div class="reveal">
+      <div class="faq-item"><div class="faq-q">Нужно ли уметь писать тексты? <span class="faq-icon">+</span></div><div class="faq-a">Нет. Просто говори как обычно — бот сам превратит твои слова в готовый пост. Никаких навыков копирайтинга не нужно.</div></div>
+      <div class="faq-item"><div class="faq-q">На каком языке работает бот? <span class="faq-icon">+</span></div><div class="faq-a">Бот понимает русский язык. Говори свободно — без акцента и дикции диктора. Живая речь с паузами и оговорками — норма.</div></div>
+      <div class="faq-item"><div class="faq-q">Публикует ли бот прямо в канал? <span class="faq-icon">+</span></div><div class="faq-a">Да. Привяжи свой Telegram-канал через /setchannel и бот будет публиковать посты напрямую одним нажатием кнопки.</div></div>
+      <div class="faq-item"><div class="faq-q">Можно ли отредактировать пост перед публикацией? <span class="faq-icon">+</span></div><div class="faq-a">Да. Перед публикацией ты видишь готовый пост и можешь попросить бота переделать его голосом — просто скажи что изменить.</div></div>
+      <div class="faq-item"><div class="faq-q">Как работает партнёрская программа? <span class="faq-icon">+</span></div><div class="faq-a">Поделись своей реферальной ссылкой через /partner. За каждую оплату приведённого тобой пользователя ты получаешь 20% комиссии. Минимальная сумма вывода — 1000 руб.</div></div>
+      <div class="faq-item"><div class="faq-q">Безопасна ли оплата? <span class="faq-icon">+</span></div><div class="faq-a">Оплата проходит через Тбанк — один из крупнейших банков России. Все данные карт защищены по стандарту PCI DSS.</div></div>
+      <div class="faq-item"><div class="faq-q">Что входит в бесплатный тариф? <span class="faq-icon">+</span></div><div class="faq-a">Один пост в день, Telegram и MAX, профиль, распаковка и настройка стиля. Бесплатно навсегда, карта не нужна. Платный тариф выбираешь сам — автосписания без твоего ведома нет.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">🎙 VoicePost</div>
+  <div class="footer-links">
+    <a href="tg://resolve?domain=sasha_poster_bot">Telegram-бот</a>
+    <a href="https://t.me/Alex_protiv">Поддержка</a>
+    <a href="/privacy_ru.html">Политика конфиденциальности</a>
+    <a href="/oferta.html">Оферта</a>
+  </div>
+  <div class="footer-copy">© 2026 VoicePost</div>
+  <div style="font-size: 11px; color: #555; margin-top: 12px; width: 100%; text-align: center;">ИП Абайдулин Александр Анатольевич · ИНН 710302044313 · ОГРНИП 319715400079901</div>
+</footer>
+
+<script>
+  // Анимация появления блоков
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 100);
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Реферальный код — сохраняем в cookie, скрываем из URL
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/';
+  }
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+  const urlParams = new URLSearchParams(window.location.search);
+  const refFromUrl = urlParams.get('ref');
+  if (refFromUrl) {
+    setCookie('ref', refFromUrl, 30);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+  const ref = refFromUrl || getCookie('ref');
+  const botBase = 'tg://resolve?domain=sasha_poster_bot';
+  // Если есть реф — добавляем ?start=ref, если нет — просто ссылка на бота
+  const botLink = ref ? botBase + '&start=' + ref : botBase;
+  // Обычные кнопки — на бота
+  document.querySelectorAll('a[href^="tg://resolve?domain=sasha_poster_bot"]').forEach(function(a) {
+    if (a.href.indexOf('unboxing') === -1) {
+      a.href = botLink;
+    }
+  });
+  // Кнопки распаковки — на бота с суффиксом _unboxing
+  var unboxingLink = ref ? botBase + '&start=' + ref + '_unboxing' : botBase + '&start=unboxing';
+  document.querySelectorAll('a[href="tg://resolve?domain=sasha_poster_bot&start=unboxing"]').forEach(function(a) {
+    a.href = unboxingLink;
+  });
+
+  // FAQ аккордеон
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    item.querySelector('.faq-q').addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
+
